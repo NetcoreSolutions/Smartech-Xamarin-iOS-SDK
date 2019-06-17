@@ -70,19 +70,19 @@ using NetCorePush
 2) Handle Notification Request
 
 ```swift
-public  override  void  DidReceiveNotificationRequest(UNNotificationRequest  request,  Action<UNNotificationContent>  contentHandler)
+public override void DidReceiveNotificationRequest(UNNotificationRequest request, Action<UNNotificationContent>  contentHandler)
 {
-NetCoreNotificationService.SharedInstance().SetUpAppGroup(<app_group_name>);
-NetCoreNotificationService.SharedInstance().DidReceiveNotificationRequest(request,  contentHandler);
+    NetCoreNotificationService.SharedInstance().SetUpAppGroup(<app_group_name>);
+    NetCoreNotificationService.SharedInstance().DidReceiveNotificationRequest(request, contentHandler);
 }
 ```
 
 3) Handle Notification Service Time Expire
 
 ```swift
-public  override  void  TimeWillExpire()
+public override void TimeWillExpire()
 {
-NetCoreNotificationService.SharedInstance().TimeWillExpire();
+    NetCoreNotificationService.SharedInstance().TimeWillExpire();
 }
 ```
 
@@ -101,8 +101,8 @@ using  UserNotifications;
 2. Setup the Smartech App ID and App Group
 
 ```swift
-var  appGroup  =  "group.com.yourcompanyname.productname";  
-var  netCoreAppId  =  "APP ID THAT YOU GET FROM SMARTECH PANEL";
+var appGroup = "group.com.yourcompanyname.productname";  
+var netCoreAppId = "APP ID THAT YOU GET FROM SMARTECH PANEL";
 ```
 
 3. Add code in 'FinishedLaunching' method.
@@ -121,15 +121,15 @@ else
 
 4.  Instantiate and initialize delegate classes for custom push notifications.
 ```swift
-NetCorePushTaskManager.SharedInstance().Delegate  =  new  NetcoreCustomDelegate(navController);
-UNUserNotificationCenter.Current.Delegate  =  new  CustomUNUserNotificationCenterDelegate();
-var  arr  =  new  NSObject[]  {  new  NSString("https://abc...xyz")  };
+NetCorePushTaskManager.SharedInstance().Delegate = new NetcoreCustomDelegate(navController);
+UNUserNotificationCenter.Current.Delegate = new CustomUNUserNotificationCenterDelegate();
+var arr = new NSObject[] {  new  NSString("https://abc...xyz") };
 NetCoreSharedManager.SharedInstance().SetAssociateDomain(arr);
 ```
 
 5. Add following code in ‘RegisteredForRemoteNotifications’ method of ‘AppDelegate.cs’ file.
 ```swift
-NetCoreInstallation.SharedInstance().NetCorePushRegisteration(<Email_Id>,  <Device_Token>);
+NetCoreInstallation.SharedInstance().NetCorePushRegisteration(<Email_Id>, <Device_Token>);
 NetCoreSharedManager.SharedInstance().PrintDeviceToken();
 ```
 
@@ -155,8 +155,8 @@ NetCorePushTaskManager.SharedInstance().DidReceiveLocalNotification(<UILocalNoti
 
 9. Add below code to handle location updates.
 ```swift
-var  locMgr  =  new  CLLocationManager();
-if  (UIDevice.CurrentDevice.CheckSystemVersion(8,  0))
+var locMgr = new CLLocationManager();
+if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
 {
     locMgr.RequestAlwaysAuthorization();
 }
@@ -194,10 +194,10 @@ You can use the below code to profile push.
 **NOTE: All the keys in the payload dictionary should be in capital letters**
 
 ```swift
-var  keys  =  new  object[]  {  "NAME",  "EMAIL",  "AGE"};
-var  values  =  new  object[]  {"Netcore","netcore@netcore.co.in",21};
-var  payload  =  NSDictionary.FromObjectsAndKeys(values,  keys);
-NetCoreInstallation.SharedInstance().NetCoreProfilePush(<identity>,<payload>)
+var keys = new object[] { "NAME", "EMAIL", "AGE"};
+var values = new  object[]  {"Netcore", "netcore@netcore.co.in", 21};
+var payload = NSDictionary.FromObjectsAndKeys(values, keys);
+NetCoreInstallation.SharedInstance().NetCoreProfilePush(<identity>, <payload>)
 ```
 ### Clear Identity
 To clear the user's identity you need to explicitly call  `clearIdentity`  method.
@@ -224,15 +224,15 @@ Each event must have a name and a set of attributes describing more about the ev
 
 -  Tracking By Event Name
 ```swift
-NetCoreAppTracking.SharedInstance().TrackEventWithCustomPayload(<event_name>,  <payload>);
+NetCoreAppTracking.SharedInstance().TrackEventWithCustomPayload(<event_name>, <payload>);
 
 // Sample Code For Reference
 NSObject keys = new NSString("payload");
 NSObject values = new NSString(<payload>);
-var  payload = NSMutableDictionary.FromObjectAndKey(values,  keys);
-var  payloadArray = new  NSMutableDictionary();
+var payload = NSMutableDictionary.FromObjectAndKey(values, keys);
+var payloadArray = new NSMutableDictionary();
 payloadArray.Add(keys, values);
-NetCoreAppTracking.SharedInstance().TrackEventWithCustomPayload(<event_name>,  payloadArray);
+NetCoreAppTracking.SharedInstance().TrackEventWithCustomPayload(<event_name>, payloadArray);
 ```
 
 
@@ -249,21 +249,21 @@ NetCoreSharedManager.SharedInstance().SetAssociateDomain(<universal-link>);
 ```swift
 public  override  void  HandleSmartechDeeplink(SMTDeeplink  smtDeeplink)
 {
-if (smtDeeplink.DeepLinkType  ==  SMTDeeplinkType.Url)
+if (smtDeeplink.DeepLinkType == SMTDeeplinkType.Url)
 {
 // When Deeplink is WebURL
 }
-else if (smtDeeplink.DeepLinkType  ==  SMTDeeplinkType.UniversalLink)
+else if (smtDeeplink.DeepLinkType ==  SMTDeeplinkType.UniversalLink)
 {
 // When Deeplink is Universal-link
 }
-else if (smtDeeplink.DeepLinkType  ==  SMTDeeplinkType.Deeplink)
+else if (smtDeeplink.DeepLinkType == SMTDeeplinkType.Deeplink)
 {
 // When Deeplink is URLSchemes link
 }
 
 //To handle custom payload add your relevant code.
-if(smtDeeplink.CustomPayload  !=  null)
+if(smtDeeplink.CustomPayload != null)
 {
 }
 }
